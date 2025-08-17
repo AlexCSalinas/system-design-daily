@@ -32,7 +32,7 @@ jobs:
     - name: Create Pull Request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: node scripts/create-pr.js
+      run: node scripts/commit-lesson.js
       
     - name: Send Discord Notification
       env:
