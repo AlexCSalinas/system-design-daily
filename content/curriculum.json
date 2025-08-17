@@ -19,6 +19,386 @@
             "correct": 1
           }
         ]
+      },
+      {
+        "day": 2,
+        "topic": "Database Systems",
+        "title": "SQL vs NoSQL Database Selection",
+        "summary": "Understanding when to use relational databases versus NoSQL databases based on data structure, consistency, and scalability requirements.",
+        "key_concepts": ["ACID Properties", "BASE Properties", "Horizontal vs Vertical Scaling", "Data Consistency"],
+        "real_world_example": "Facebook uses MySQL for user data and Cassandra for messaging due to different consistency requirements",
+        "mermaid_diagram": "graph LR\n    App[Application]\n    App --> SQL[(SQL Database)]\n    App --> NoSQL[(NoSQL Database)]\n    SQL --> ACID[ACID Properties]\n    NoSQL --> BASE[BASE Properties]",
+        "discussion_questions": [
+          "What factors would lead you to choose MongoDB over PostgreSQL?",
+          "How do you handle transactions in a NoSQL environment?"
+        ],
+        "quiz": [
+          {
+            "question": "Which property is NOT part of ACID in relational databases?",
+            "options": ["Atomicity", "Consistency", "Isolation", "Availability"],
+            "correct": 3
+          }
+        ]
+      },
+      {
+        "day": 3,
+        "topic": "Caching",
+        "title": "Caching Strategies and Implementation",
+        "summary": "Caching improves performance by storing frequently accessed data in fast storage, reducing database load and response times.",
+        "key_concepts": ["Cache-aside", "Write-through", "Write-behind", "TTL", "Cache Invalidation"],
+        "real_world_example": "Reddit uses Redis for caching hot posts and comments to handle millions of requests per second",
+        "mermaid_diagram": "graph TD\n    Client --> App[Application]\n    App --> Cache[Redis Cache]\n    App --> DB[(Database)]\n    Cache -.-> DB",
+        "discussion_questions": [
+          "How would you implement cache invalidation for a social media feed?",
+          "What are the trade-offs between write-through and write-behind caching?"
+        ],
+        "quiz": [
+          {
+            "question": "In cache-aside pattern, who is responsible for managing the cache?",
+            "options": ["Database", "Application", "Load Balancer", "Cache Server"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 4,
+        "topic": "Content Delivery Networks",
+        "title": "CDN Architecture and Edge Computing",
+        "summary": "CDNs distribute content across geographically dispersed servers to reduce latency and improve user experience globally.",
+        "key_concepts": ["Edge Servers", "Origin Server", "Cache Hit Ratio", "Geographic Distribution"],
+        "real_world_example": "Cloudflare operates 250+ data centers globally to serve static content with minimal latency",
+        "mermaid_diagram": "graph TD\n    User1[User US] --> Edge1[US Edge Server]\n    User2[User EU] --> Edge2[EU Edge Server]\n    Edge1 --> Origin[Origin Server]\n    Edge2 --> Origin",
+        "discussion_questions": [
+          "How would you handle dynamic content with a CDN?",
+          "What strategies would you use to optimize cache hit ratios?"
+        ],
+        "quiz": [
+          {
+            "question": "What is the primary benefit of using a CDN?",
+            "options": ["Increased storage", "Reduced latency", "Better security", "Lower costs"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 5,
+        "topic": "Message Queues",
+        "title": "Asynchronous Communication Patterns",
+        "summary": "Message queues enable asynchronous communication between services, improving system resilience and scalability.",
+        "key_concepts": ["Producer-Consumer", "Pub-Sub", "Dead Letter Queues", "Message Ordering"],
+        "real_world_example": "Uber uses Apache Kafka to handle real-time location updates and trip matching across their platform",
+        "mermaid_diagram": "graph LR\n    Producer --> Queue[Message Queue]\n    Queue --> Consumer1[Consumer 1]\n    Queue --> Consumer2[Consumer 2]\n    Queue --> Consumer3[Consumer 3]",
+        "discussion_questions": [
+          "How would you ensure message ordering in a distributed queue system?",
+          "When would you choose RabbitMQ over Apache Kafka?"
+        ],
+        "quiz": [
+          {
+            "question": "What happens to messages that cannot be processed in a queue system?",
+            "options": ["They are deleted", "Sent to dead letter queue", "Retried indefinitely", "Stored in database"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 6,
+        "topic": "Microservices Architecture",
+        "title": "Decomposing Monoliths into Microservices",
+        "summary": "Microservices architecture breaks applications into small, independent services that communicate over well-defined APIs.",
+        "key_concepts": ["Service Boundaries", "API Gateway", "Inter-service Communication", "Data Consistency"],
+        "real_world_example": "Amazon has over 100 microservices powering their e-commerce platform, each owned by small teams",
+        "mermaid_diagram": "graph TD\n    Client --> Gateway[API Gateway]\n    Gateway --> Auth[Auth Service]\n    Gateway --> User[User Service]\n    Gateway --> Order[Order Service]\n    Gateway --> Payment[Payment Service]",
+        "discussion_questions": [
+          "How do you handle distributed transactions across microservices?",
+          "What criteria would you use to define service boundaries?"
+        ],
+        "quiz": [
+          {
+            "question": "What is a key challenge when moving from monolith to microservices?",
+            "options": ["Increased performance", "Data consistency", "Simpler deployment", "Reduced complexity"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 7,
+        "topic": "API Gateway",
+        "title": "Centralized API Management",
+        "summary": "API gateways provide a single entry point for client requests, handling cross-cutting concerns like authentication, rate limiting, and routing.",
+        "key_concepts": ["Request Routing", "Authentication", "Rate Limiting", "Request/Response Transformation"],
+        "real_world_example": "Netflix's Zuul gateway handles billions of requests daily, providing resilience and monitoring for their microservices",
+        "mermaid_diagram": "graph TD\n    Client --> Gateway[API Gateway]\n    Gateway --> Auth{Authentication}\n    Auth --> Rate{Rate Limiting}\n    Rate --> Route{Request Routing}\n    Route --> Service1[Service A]\n    Route --> Service2[Service B]",
+        "discussion_questions": [
+          "How would you implement versioning through an API gateway?",
+          "What are the trade-offs of using an API gateway vs direct service communication?"
+        ],
+        "quiz": [
+          {
+            "question": "Which concern is typically NOT handled by an API gateway?",
+            "options": ["Authentication", "Rate limiting", "Data persistence", "Request routing"],
+            "correct": 2
+          }
+        ]
+      },
+      {
+        "day": 8,
+        "topic": "Database Sharding",
+        "title": "Horizontal Database Partitioning",
+        "summary": "Sharding distributes data across multiple database instances to handle large datasets and high throughput requirements.",
+        "key_concepts": ["Shard Key", "Hash-based Sharding", "Range-based Sharding", "Cross-shard Queries"],
+        "real_world_example": "Instagram shards user data by user ID, allowing them to store billions of photos across thousands of database servers",
+        "mermaid_diagram": "graph TD\n    App[Application]\n    App --> Shard1[(Shard 1<br/>Users 1-1000)]\n    App --> Shard2[(Shard 2<br/>Users 1001-2000)]\n    App --> Shard3[(Shard 3<br/>Users 2001-3000)]",
+        "discussion_questions": [
+          "How would you handle resharding when adding new database servers?",
+          "What are the challenges of implementing joins across shards?"
+        ],
+        "quiz": [
+          {
+            "question": "What is the most important consideration when choosing a shard key?",
+            "options": ["Data type", "Even distribution", "Alphabetical order", "Timestamp"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 9,
+        "topic": "Database Replication",
+        "title": "Data Replication for High Availability",
+        "summary": "Database replication creates copies of data across multiple servers to ensure availability and improve read performance.",
+        "key_concepts": ["Master-Slave", "Master-Master", "Synchronous vs Asynchronous", "Read Replicas"],
+        "real_world_example": "MySQL's master-slave replication allows Wikipedia to serve millions of read requests from replica databases",
+        "mermaid_diagram": "graph TD\n    Write[Write Requests] --> Master[(Master DB)]\n    Master --> Slave1[(Slave DB 1)]\n    Master --> Slave2[(Slave DB 2)]\n    Read1[Read Requests] --> Slave1\n    Read2[Read Requests] --> Slave2",
+        "discussion_questions": [
+          "How would you handle replication lag in a read-heavy application?",
+          "What are the trade-offs between synchronous and asynchronous replication?"
+        ],
+        "quiz": [
+          {
+            "question": "In master-slave replication, where should write operations be directed?",
+            "options": ["Any slave", "Master only", "Round robin", "Closest server"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 10,
+        "topic": "CAP Theorem",
+        "title": "Consistency, Availability, and Partition Tolerance",
+        "summary": "CAP theorem states that distributed systems can guarantee at most two of three properties: Consistency, Availability, and Partition tolerance.",
+        "key_concepts": ["Consistency", "Availability", "Partition Tolerance", "Eventual Consistency"],
+        "real_world_example": "Amazon DynamoDB chooses availability and partition tolerance over strong consistency for their shopping cart system",
+        "mermaid_diagram": "graph TD\n    CAP[CAP Theorem]\n    CAP --> C[Consistency]\n    CAP --> A[Availability]\n    CAP --> P[Partition Tolerance]\n    C -.-> CA[CA: Traditional RDBMS]\n    A -.-> AP[AP: DynamoDB, Cassandra]\n    P -.-> CP[CP: MongoDB, Redis]",
+        "discussion_questions": [
+          "In what scenarios would you prioritize consistency over availability?",
+          "How does eventual consistency work in practice?"
+        ],
+        "quiz": [
+          {
+            "question": "According to CAP theorem, what is the maximum number of properties a distributed system can guarantee?",
+            "options": ["1", "2", "3", "It depends"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 11,
+        "topic": "Rate Limiting",
+        "title": "Protecting Systems from Overload",
+        "summary": "Rate limiting controls the number of requests a client can make to prevent system overload and ensure fair resource usage.",
+        "key_concepts": ["Token Bucket", "Leaky Bucket", "Fixed Window", "Sliding Window"],
+        "real_world_example": "Twitter's API rate limiting prevents abuse while allowing legitimate developers to build applications on their platform",
+        "mermaid_diagram": "graph TD\n    Request --> RateLimit{Rate Limiter}\n    RateLimit -->|Allowed| Process[Process Request]\n    RateLimit -->|Denied| Error[Return 429 Error]\n    Process --> Response[Send Response]",
+        "discussion_questions": [
+          "How would you implement distributed rate limiting across multiple servers?",
+          "What factors determine appropriate rate limits for different API endpoints?"
+        ],
+        "quiz": [
+          {
+            "question": "Which rate limiting algorithm allows bursts of traffic up to a certain capacity?",
+            "options": ["Fixed window", "Sliding window", "Token bucket", "Leaky bucket"],
+            "correct": 2
+          }
+        ]
+      },
+      {
+        "day": 12,
+        "topic": "Monitoring and Logging",
+        "title": "Observability in Distributed Systems",
+        "summary": "Comprehensive monitoring and logging provide visibility into system health, performance, and behavior for troubleshooting and optimization.",
+        "key_concepts": ["Metrics", "Logs", "Traces", "Alerting", "Dashboards"],
+        "real_world_example": "Google's SRE practices use SLIs, SLOs, and error budgets to maintain 99.99% uptime across their services",
+        "mermaid_diagram": "graph TD\n    App[Application] --> Metrics[Metrics Collector]\n    App --> Logs[Log Aggregator]\n    App --> Traces[Distributed Tracing]\n    Metrics --> Dashboard[Monitoring Dashboard]\n    Logs --> Search[Log Search]\n    Traces --> Analysis[Performance Analysis]",
+        "discussion_questions": [
+          "How do you balance detailed logging with system performance?",
+          "What metrics are most important for measuring system health?"
+        ],
+        "quiz": [
+          {
+            "question": "What does SLO stand for in monitoring?",
+            "options": ["Service Level Objective", "System Log Output", "Scalable Load Operation", "Server Location Object"],
+            "correct": 0
+          }
+        ]
+      },
+      {
+        "day": 13,
+        "topic": "Search Systems",
+        "title": "Building Scalable Search Infrastructure",
+        "summary": "Search systems enable fast retrieval of relevant information from large datasets using indexing, ranking, and query processing techniques.",
+        "key_concepts": ["Inverted Index", "TF-IDF", "Elasticsearch", "Relevance Scoring"],
+        "real_world_example": "Elasticsearch powers search functionality for GitHub, enabling developers to quickly find code across millions of repositories",
+        "mermaid_diagram": "graph TD\n    Query[Search Query] --> Parser[Query Parser]\n    Parser --> Index[Inverted Index]\n    Index --> Ranking[Relevance Ranking]\n    Ranking --> Results[Search Results]",
+        "discussion_questions": [
+          "How would you handle real-time search index updates for a social media platform?",
+          "What strategies improve search relevance for e-commerce applications?"
+        ],
+        "quiz": [
+          {
+            "question": "What is the primary purpose of an inverted index in search systems?",
+            "options": ["Store documents", "Map terms to documents", "Rank results", "Cache queries"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 14,
+        "topic": "File Storage Systems",
+        "title": "Distributed File Storage and Object Storage",
+        "summary": "Distributed file storage systems provide scalable, durable storage for large amounts of unstructured data across multiple servers.",
+        "key_concepts": ["Object Storage", "Replication", "Erasure Coding", "Metadata Management"],
+        "real_world_example": "Amazon S3 stores trillions of objects and handles millions of requests per second using distributed object storage architecture",
+        "mermaid_diagram": "graph TD\n    Client --> Gateway[Storage Gateway]\n    Gateway --> Meta[Metadata Service]\n    Gateway --> Node1[Storage Node 1]\n    Gateway --> Node2[Storage Node 2]\n    Gateway --> Node3[Storage Node 3]",
+        "discussion_questions": [
+          "How do you ensure data durability in a distributed storage system?",
+          "What are the trade-offs between object storage and traditional file systems?"
+        ],
+        "quiz": [
+          {
+            "question": "What technique is commonly used in distributed storage to recover data when some servers fail?",
+            "options": ["Compression", "Encryption", "Erasure coding", "Load balancing"],
+            "correct": 2
+          }
+        ]
+      },
+      {
+        "day": 15,
+        "topic": "Authentication and Authorization",
+        "title": "Securing Access to Distributed Systems",
+        "summary": "Authentication verifies user identity while authorization determines what resources they can access in distributed systems.",
+        "key_concepts": ["JWT Tokens", "OAuth 2.0", "RBAC", "SSO"],
+        "real_world_example": "Google's OAuth 2.0 implementation allows users to sign into thousands of third-party applications without sharing passwords",
+        "mermaid_diagram": "graph TD\n    User --> Auth[Auth Service]\n    Auth --> Token{Valid Token?}\n    Token -->|Yes| Resource[Access Resource]\n    Token -->|No| Deny[Access Denied]\n    Resource --> RBAC[Role-Based Check]",
+        "discussion_questions": [
+          "How would you implement JWT token refresh in a microservices architecture?",
+          "What are the security considerations when implementing SSO?"
+        ],
+        "quiz": [
+          {
+            "question": "What does JWT stand for?",
+            "options": ["Java Web Token", "JSON Web Token", "JavaScript Web Technology", "Joint Web Transfer"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 16,
+        "topic": "Service Discovery",
+        "title": "Dynamic Service Location in Microservices",
+        "summary": "Service discovery enables services to find and communicate with each other dynamically in distributed systems without hardcoded addresses.",
+        "key_concepts": ["Service Registry", "Health Checks", "DNS-based Discovery", "Load Balancing Integration"],
+        "real_world_example": "Netflix uses Eureka for service discovery, allowing their microservices to dynamically find dependencies across multiple AWS regions",
+        "mermaid_diagram": "graph TD\n    Service1[Service A] --> Registry[Service Registry]\n    Service2[Service B] --> Registry\n    Client[Client Service] --> Registry\n    Registry --> Discovery[Discover Service B]\n    Discovery --> Connect[Connect to Service B]",
+        "discussion_questions": [
+          "How do you handle service discovery during network partitions?",
+          "What are the trade-offs between client-side and server-side service discovery?"
+        ],
+        "quiz": [
+          {
+            "question": "What is the primary purpose of health checks in service discovery?",
+            "options": ["Monitor performance", "Remove unhealthy services", "Load balancing", "Security validation"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 17,
+        "topic": "Circuit Breakers",
+        "title": "Preventing Cascading Failures",
+        "summary": "Circuit breakers protect systems from cascading failures by temporarily blocking requests to failing services and allowing them to recover.",
+        "key_concepts": ["Closed State", "Open State", "Half-Open State", "Failure Threshold"],
+        "real_world_example": "Netflix's Hystrix library implements circuit breakers to prevent cascading failures across their microservices architecture",
+        "mermaid_diagram": "graph TD\n    Request --> CB{Circuit Breaker}\n    CB -->|Closed| Service[Call Service]\n    CB -->|Open| Fallback[Return Fallback]\n    CB -->|Half-Open| Test[Test Service]\n    Service --> Success[Success]\n    Service --> Failure[Failure]\n    Failure --> Open[Open Circuit]",
+        "discussion_questions": [
+          "How do you determine appropriate failure thresholds for circuit breakers?",
+          "What fallback strategies work best for different types of services?"
+        ],
+        "quiz": [
+          {
+            "question": "In which circuit breaker state are all requests immediately rejected?",
+            "options": ["Closed", "Open", "Half-Open", "Testing"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 18,
+        "topic": "Event-Driven Architecture",
+        "title": "Asynchronous Event Processing",
+        "summary": "Event-driven architecture uses events to trigger and communicate between loosely coupled services, enabling reactive and scalable systems.",
+        "key_concepts": ["Event Sourcing", "CQRS", "Event Streaming", "Saga Pattern"],
+        "real_world_example": "LinkedIn's Kafka-based event streaming platform processes over 7 trillion messages per day for real-time analytics and recommendations",
+        "mermaid_diagram": "graph TD\n    Producer[Event Producer] --> Stream[Event Stream]\n    Stream --> Consumer1[Consumer 1]\n    Stream --> Consumer2[Consumer 2]\n    Stream --> Consumer3[Consumer 3]\n    Consumer1 --> Action1[Action A]\n    Consumer2 --> Action2[Action B]",
+        "discussion_questions": [
+          "How do you handle event ordering in a distributed event-driven system?",
+          "What are the challenges of implementing saga patterns for distributed transactions?"
+        ],
+        "quiz": [
+          {
+            "question": "What does CQRS stand for in event-driven architecture?",
+            "options": ["Command Query Response System", "Command Query Responsibility Segregation", "Centralized Query Result Service", "Concurrent Query Resource Sharing"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 19,
+        "topic": "Distributed Consensus",
+        "title": "Agreement in Distributed Systems",
+        "summary": "Distributed consensus algorithms enable multiple nodes to agree on a single value or state despite failures and network issues.",
+        "key_concepts": ["Raft Algorithm", "Paxos", "Leader Election", "Log Replication"],
+        "real_world_example": "etcd uses Raft consensus to maintain consistent configuration data for Kubernetes clusters across multiple servers",
+        "mermaid_diagram": "graph TD\n    Leader[Leader Node] --> Follower1[Follower 1]\n    Leader --> Follower2[Follower 2]\n    Leader --> Follower3[Follower 3]\n    Client --> Leader\n    Leader --> Log[Replicated Log]\n    Follower1 --> Log1[Local Log]\n    Follower2 --> Log2[Local Log]",
+        "discussion_questions": [
+          "How does the Raft algorithm handle network partitions?",
+          "When would you choose Paxos over Raft for consensus?"
+        ],
+        "quiz": [
+          {
+            "question": "In the Raft algorithm, how many nodes must agree for a successful commit?",
+            "options": ["All nodes", "Majority of nodes", "At least 2 nodes", "Leader node only"],
+            "correct": 1
+          }
+        ]
+      },
+      {
+        "day": 20,
+        "topic": "Scalability Patterns",
+        "title": "Designing for Growth and Scale",
+        "summary": "Scalability patterns provide proven approaches to handle increasing load through horizontal scaling, vertical scaling, and architectural improvements.",
+        "key_concepts": ["Horizontal Scaling", "Vertical Scaling", "Auto-scaling", "Performance Optimization"],
+        "real_world_example": "WhatsApp handles 100 billion messages per day using horizontal scaling with minimal servers through efficient architecture design",
+        "mermaid_diagram": "graph TD\n    Load[Increasing Load] --> Decision{Scale Type}\n    Decision -->|More Power| Vertical[Vertical Scaling<br/>Bigger Servers]\n    Decision -->|More Servers| Horizontal[Horizontal Scaling<br/>More Servers]\n    Horizontal --> LB[Load Balancer]\n    LB --> Server1[Server 1]\n    LB --> Server2[Server 2]\n    LB --> ServerN[Server N]",
+        "discussion_questions": [
+          "How do you decide between horizontal and vertical scaling for different components?",
+          "What metrics should trigger auto-scaling decisions in cloud environments?"
+        ],
+        "quiz": [
+          {
+            "question": "What is a key advantage of horizontal scaling over vertical scaling?",
+            "options": ["Lower cost", "Simpler implementation", "Better fault tolerance", "Faster performance"],
+            "correct": 2
+          }
+        ]
       }
     ]
   }
