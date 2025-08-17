@@ -19,7 +19,7 @@ A fully automated learning platform that generates daily system design lessons a
 **Fully Automated**
 - Daily lessons via GitHub Actions (8 AM EST)
 - Zero maintenance required
-- 60+ day curriculum covering fundamentals to advanced topics
+- 30+ day curriculum covering fundamentals to advanced topics
 
 **Comprehensive Content**
 - Real-world examples from Netflix, Uber, WhatsApp, Twitter
