@@ -8,7 +8,7 @@ execSync('git config user.name "System Design Bot"');
 execSync('git config user.email "action@github.com"');
 
 // Add files directly to main branch
-execSync('git add lessons/ docs/');
+execSync('git add .');
 execSync(`git commit -m "🧠 Day ${lesson.day}: ${lesson.title}
 
 📚 Today's Topic: ${lesson.topic}
