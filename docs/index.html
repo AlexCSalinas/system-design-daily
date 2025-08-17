@@ -52,37 +52,27 @@
     </div>
     
     <ul class="quiz-list" id="quiz-list">
-        <!-- Quiz links will be automatically added here -->
+        <!-- Quiz link will be automatically generated here -->
     </ul>
     
     <script>
-        // Quiz data will be populated by the workflow
-        const quizzes = [
-          {
-                    "title": "Understanding Load Balancing Strategies",
-                    "topic": "Load Balancers",
-                    "date": "2025-08-17",
-                    "day": 1
-          }
-        ];
-        
-        function renderQuizzes() {
+        function renderTodaysQuiz() {
+            const today = new Date().toISOString().split('T')[0];
             const list = document.getElementById('quiz-list');
             
-            if (quizzes.length === 0) {
-                list.innerHTML = '<li class="quiz-item">No quizzes yet! Run the daily workflow to generate your first lesson and quiz.</li>';
-                return;
-            }
-            
-            list.innerHTML = quizzes.map(quiz => `
+            list.innerHTML = `
                 <li class="quiz-item">
-                    <a href="quiz-${quiz.date}.html">Day ${quiz.day}: ${quiz.title}</a>
-                    <div class="quiz-date">${quiz.topic} • ${quiz.date}</div>
+                    <a href="quiz-${today}.html">📝 Take Today's Quiz</a>
+                    <div class="quiz-date">System Design • ${today}</div>
                 </li>
-            `).join('');
+                <li class="quiz-item">
+                    <a href="https://discord.gg/kavAJuK24F" target="_blank">💬 Join Discord Community</a>
+                    <div class="quiz-date">Daily discussions and tech talk</div>
+                </li>
+            `;
         }
         
-        renderQuizzes();
+        renderTodaysQuiz();
     </script>
 </body>
 </html>
