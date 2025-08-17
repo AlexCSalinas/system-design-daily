@@ -7,6 +7,8 @@ const lessonIndex = (dayOfYear - 1) % curriculum.lessons.length;
 const lesson = curriculum.lessons[lessonIndex];
 
 const date = new Date().toISOString().split('T')[0];
+
+// Generate lesson file (unchanged)
 const lessonContent = `# Day ${lesson.day}: ${lesson.title}
 
 ## Overview
@@ -42,7 +44,7 @@ if (!fs.existsSync(lessonsDir)) {
 
 fs.writeFileSync(path.join(lessonsDir, `${date}-${lesson.topic.toLowerCase().replace(/\s+/g, '-')}.md`), lessonContent);
 
-// Generate quiz HTML
+// Generate quiz HTML (keeping your existing styling!)
 const quizHTML = `<!DOCTYPE html>
 <html>
 <head>
@@ -95,5 +97,58 @@ if (!fs.existsSync(docsDir)) {
 
 fs.writeFileSync(path.join(docsDir, `quiz-${date}.html`), quizHTML);
 
+// Update index.html with new quiz link
+const indexPath = path.join(docsDir, 'index.html');
+let indexContent = '';
+
+if (fs.existsSync(indexPath)) {
+  indexContent = fs.readFileSync(indexPath, 'utf8');
+  
+  // Parse existing quizzes from index.html
+  const quizzesMatch = indexContent.match(/const quizzes = \[([\s\S]*?)\];/);
+  let existingQuizzes = [];
+
+  if (quizzesMatch) {
+    const quizzesString = quizzesMatch[1].trim();
+    if (quizzesString && !quizzesString.includes('//')) {
+      try {
+        existingQuizzes = JSON.parse(`[${quizzesString}]`);
+      } catch (e) {
+        console.log('Could not parse existing quizzes, starting fresh');
+      }
+    }
+  }
+
+  // Add new quiz (check if it already exists to avoid duplicates)
+  const newQuizData = {
+    title: lesson.title,
+    topic: lesson.topic,
+    date: date,
+    day: lesson.day
+  };
+
+  const quizExists = existingQuizzes.some(q => q.date === date);
+  if (!quizExists) {
+    existingQuizzes.push(newQuizData);
+    
+    // Sort by date (newest first)
+    existingQuizzes.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  // Update the index.html content
+  const updatedQuizzesString = JSON.stringify(existingQuizzes, null, 12).slice(1, -1);
+  const updatedIndexContent = indexContent.replace(
+    /const quizzes = \[([\s\S]*?)\];/,
+    `const quizzes = [${updatedQuizzesString}        ];`
+  );
+
+  fs.writeFileSync(indexPath, updatedIndexContent);
+  console.log(`✅ Updated index with new quiz link`);
+} else {
+  console.log('⚠️  Index.html not found - create it first!');
+}
+
 // Store lesson data for other scripts
 fs.writeFileSync('temp-lesson-data.json', JSON.stringify({ lesson, date, lessonIndex }));
+
+console.log(`✅ Generated lesson and quiz for Day ${lesson.day}: ${lesson.title}`);

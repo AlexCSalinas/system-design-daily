@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Design Daily</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+        .description {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .quiz-list { 
+            list-style: none; 
+            padding: 0; 
+        }
+        .quiz-item { 
+            margin: 15px 0; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+        }
+        .quiz-item a { 
+            text-decoration: none; 
+            color: #333; 
+            font-weight: bold; 
+        }
+        .quiz-item a:hover { 
+            color: #0066cc; 
+        }
+        .quiz-date {
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>System Design Daily</h1>
+    
+    <div class="description">
+        <p>Daily system design deep-dives with interactive quizzes, automatically generated via GitHub Actions. Each day covers a new fundamental concept in system design with real-world examples and hands-on practice questions.</p>
+    </div>
+    
+    <ul class="quiz-list" id="quiz-list">
+        <!-- Quiz links will be automatically added here -->
+    </ul>
+    
+    <script>
+        // Quiz data will be populated by the workflow
+        const quizzes = [
+            // { title: "Understanding Load Balancing Strategies", topic: "Load Balancers", date: "2025-08-17", day: 1 }
+        ];
+        
+        function renderQuizzes() {
+            const list = document.getElementById('quiz-list');
+            
+            if (quizzes.length === 0) {
+                list.innerHTML = '<li class="quiz-item">No quizzes yet! Run the daily workflow to generate your first lesson and quiz.</li>';
+                return;
+            }
+            
+            list.innerHTML = quizzes.map(quiz => `
+                <li class="quiz-item">
+                    <a href="quiz-${quiz.date}.html">Day ${quiz.day}: ${quiz.title}</a>
+                    <div class="quiz-date">${quiz.topic} • ${quiz.date}</div>
+                </li>
+            `).join('');
+        }
+        
+        renderQuizzes();
+    </script>
+</body>
+</html>
