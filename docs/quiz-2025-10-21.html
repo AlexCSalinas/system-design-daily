@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz: Distributed File Storage and Object Storage</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .question { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .option { margin: 5px 0; cursor: pointer; }
+        .correct { background-color: #d4edda; }
+        .incorrect { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Quiz: Distributed File Storage and Object Storage</h1>
+    <div id="quiz-container">
+        
+            <div class="question">
+                <h3>What technique is commonly used in distributed storage to recover data when some servers fail?</h3>
+                
+                    <div class="option" onclick="selectAnswer(0, 0, 2)">
+                        A. Compression
+                    </div>
+                
+                    <div class="option" onclick="selectAnswer(0, 1, 2)">
+                        B. Encryption
+                    </div>
+                
+                    <div class="option" onclick="selectAnswer(0, 2, 2)">
+                        C. Erasure coding
+                    </div>
+                
+                    <div class="option" onclick="selectAnswer(0, 3, 2)">
+                        D. Load balancing
+                    </div>
+                
+            </div>
+        
+    </div>
+    
+    <script>
+        function selectAnswer(questionIndex, answerIndex, correctIndex) {
+            const question = document.querySelectorAll('.question')[questionIndex];
+            const options = question.querySelectorAll('.option');
+            
+            options.forEach(option => option.classList.remove('correct', 'incorrect'));
+            
+            if (answerIndex === correctIndex) {
+                options[answerIndex].classList.add('correct');
+            } else {
+                options[answerIndex].classList.add('incorrect');
+                options[correctIndex].classList.add('correct');
+            }
+        }
+    </script>
+</body>
+</html>
