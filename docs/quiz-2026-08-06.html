@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz: Asynchronous Event Processing</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .question { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .option { margin: 5px 0; cursor: pointer; }
+        .correct { background-color: #d4edda; }
+        .incorrect { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Quiz: Asynchronous Event Processing</h1>
+    <div id="quiz-container">
+        
+            <div class="question">
+                <h3>What does CQRS stand for in event-driven architecture?</h3>
+                
+                    <div class="option" onclick="selectAnswer(0, 0, 1)">
+                        A. Command Query Response System
+                    </div>
+                
+                    <div class="option" onclick="selectAnswer(0, 1, 1)">
+                        B. Command Query Responsibility Segregation
+                    </div>
+                
+                    <div class="option" onclick="selectAnswer(0, 2, 1)">
+                        C. Centralized Query Result Service
+                    </div>
+                
+                    <div class="option" onclick="selectAnswer(0, 3, 1)">
+                        D. Concurrent Query Resource Sharing
+                    </div>
+                
+            </div>
+        
+    </div>
+    
+    <script>
+        function selectAnswer(questionIndex, answerIndex, correctIndex) {
+            const question = document.querySelectorAll('.question')[questionIndex];
+            const options = question.querySelectorAll('.option');
+            
+            options.forEach(option => option.classList.remove('correct', 'incorrect'));
+            
+            if (answerIndex === correctIndex) {
+                options[answerIndex].classList.add('correct');
+            } else {
+                options[answerIndex].classList.add('incorrect');
+                options[correctIndex].classList.add('correct');
+            }
+        }
+    </script>
+</body>
+</html>
